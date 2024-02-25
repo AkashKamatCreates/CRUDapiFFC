@@ -4,8 +4,8 @@ const Product = require('./models/product.model');
 const app = express();
 app.use(express.json());
 
-
-app.post('/api/products', async (req, res) => {
+//READ
+app.get('/api/products', async (req, res) => {
     try {
         const products = await Product.find({});
         res.status(200).json(products);
@@ -14,8 +14,18 @@ app.post('/api/products', async (req, res) => {
     }
 });
 
+app.get('/getbyid/:id', async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const product = await Product.findById(id);
+        res.status(200).json(product);
+    } catch (error) {
+        res.status(500),json({message:error.message});
+    }
+});
 
 
+//CREATE
 app.post('/api/products', async (req, res) => {
     try {
         const product = await Product.create(req.body);
@@ -25,6 +35,24 @@ app.post('/api/products', async (req, res) => {
     }
 });
 
+
+//UPDATE
+app.put('/updatebyid/:id', async (req, res)=>{
+    try {
+        const {id} = req.params;
+
+        const product = await Product.findByIdAndUpdate(id, req.body);
+        
+        if(!product){
+            return res.status(404).json({message: "Product nnot found!"});
+        }
+
+        const updatedproduct = await Product.findById(id);
+        res.status(200).json(updatedproduct);
+    } catch (error) {
+        res.status(500),json({message:error.message});
+    }
+});
 
 
 
