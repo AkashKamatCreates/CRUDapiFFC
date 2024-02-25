@@ -1,8 +1,10 @@
+
 const express = require('express');
 const mongoose = require('mongoose')
 const Product = require('./models/product.model');
 const productRoutes = require('./routes/product.route.js')
 const app = express();
+require('dotenv').config();
 
 //MiddleWare
 app.use(express.json());
@@ -11,7 +13,8 @@ app.use(express.urlencoded({extended: false}));
 //Routes
 app.use('/api/products', productRoutes);
 
-//READ
+/**
+ * //READ
 app.get('/api/products/:id', async (req, res)=>{
     
 });
@@ -33,6 +36,8 @@ app.put('/api/products/:id', async (req, res)=>{
 app.delete('/api/products/:id', async (req, res)=>{
     
 });
+*/
+
 
 //Home Greetings...
 app.get('/', (req, res)=>{
@@ -40,7 +45,7 @@ app.get('/', (req, res)=>{
 });
 
 
-mongoose.connect("mongodb+srv://yourcare316:OK05rQM1HGOQqhfU@backenddatabase.thivddw.mongodb.net/NodeAPI?retryWrites=true&w=majority&appName=BackendDatabase")
+mongoose.connect(process.env.url)
 .then(() => {
     console.log('Connected to the database')
     app.listen(3000, ()=>{
