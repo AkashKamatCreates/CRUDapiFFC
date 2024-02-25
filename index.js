@@ -1,44 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const Product = require('./models/product.model');
+const productRoutes = require('./routes/product.route.js')
 const app = express();
+
+//MiddleWare
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-//READ
-app.get('/api/products', async (req, res) => {
-    try {
-        const products = await Product.find({});
-        res.status(200).json(products);
-    } catch (error) {
-        res.status(500),json({message:error.message});
-    }
-});
+//Routes
+app.use('/api/products', productRoutes);
 
-app.get('/getbyid/:id', async (req, res)=>{
-    try {
-        const {id} = req.params;
-        const product = await Product.findById(id);
-        res.status(200).json(product);
-    } catch (error) {
-        res.status(500),json({message:error.message});
-    }
+//READ
+app.get('/api/products/:id', async (req, res)=>{
+    
 });
 
 
 //CREATE
 app.post('/api/products', async (req, res) => {
-    try {
-        const product = await Product.create(req.body);
-        res.status(200).json(product);
-    } catch (error) {
-        res.status(500),json({message:error.message});
-    }
+    
 });
 
 
 //UPDATE
-app.put('/updatebyid/:id', async (req, res)=>{
+app.put('/api/products/:id', async (req, res)=>{
     try {
         const {id} = req.params;
 
@@ -57,7 +43,7 @@ app.put('/updatebyid/:id', async (req, res)=>{
 
 
 //DELETE
-app.delete('/deletebyid/:id', async (req, res)=>{
+app.delete('/api/products/:id', async (req, res)=>{
     try {
         const {id} = req.params;
 
@@ -74,6 +60,7 @@ app.delete('/deletebyid/:id', async (req, res)=>{
     }
 });
 
+//Home Greetings...
 app.get('/', (req, res)=>{
     res.send('hello from nodeapi')
 });
