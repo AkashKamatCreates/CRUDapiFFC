@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const Product = require('./models/product.model');
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 //READ
 app.get('/api/products', async (req, res) => {
