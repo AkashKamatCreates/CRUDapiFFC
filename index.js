@@ -6,5 +6,5 @@ app.listen(3000, ()=>{
 });
 
 app.get('/', (req, res)=>{
-    res.send('hello from nodeapi')
+    res.send('hello from nodeapi server')
 });
