@@ -1,4 +1,4 @@
-# CRUD API study from FreeCodeCamp
+# CRUD API
 
 - Used:
   - Node
